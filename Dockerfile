@@ -21,8 +21,11 @@ RUN echo "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] http
 # Install Tailscale
 RUN apt-get update && apt-get install -y tailscale && rm -rf /var/lib/apt/lists/*
 
-# Install Caddy
-RUN curl -fsSL https://get.caddyserver.com | bash
+# Install Caddy via APT
+RUN curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg \
+  && curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list \
+  && apt-get update \
+  && apt-get install -y caddy
 
 # Copy configuration files
 COPY Caddyfile /etc/caddy/Caddyfile
