@@ -1,8 +1,6 @@
-
-# Use Debian as the base image
 FROM debian:bullseye-slim
 
-# Install dependencies and Caddy
+# Install dependencies
 RUN apt-get update && apt-get install -y \
     curl \
     gnupg \
@@ -14,24 +12,27 @@ RUN apt-get update && apt-get install -y \
     unzip \
     && rm -rf /var/lib/apt/lists/*
 
+# Add Tailscale GPG key manually to avoid NO_PUBKEY error
+RUN curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.gpg | gpg --dearmor -o /usr/share/keyrings/tailscale-archive-keyring.gpg
+
+# Add Tailscale repository
+RUN echo "deb [signed-by=/usr/share/keyrings/tailscale-archive-keyring.gpg] https://pkgs.tailscale.com/stable/debian bullseye main" > /etc/apt/sources.list.d/tailscale.list
+
 # Install Tailscale
-RUN curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.gpg | gpg --dearmor -o /usr/share/keyrings/tailscale-archive-keyring.gpg \
-    && curl -fsSL https://pkgs.tailscale.com/stable/debian/bullseye.list | tee /etc/apt/sources.list.d/tailscale.list \
-    && apt-get update \
-    && apt-get install -y tailscale \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y tailscale && rm -rf /var/lib/apt/lists/*
 
 # Install Caddy
-RUN curl -fsSL https://caddyserver.com/api/download?os=linux&arch=amd64 | tar -xz -C /usr/bin caddy \
-    && chmod +x /usr/bin/caddy
+RUN curl -fsSL https://get.caddyserver.com | bash
 
-# Copy configuration and startup script
+# Copy configuration files
 COPY Caddyfile /etc/caddy/Caddyfile
 COPY start.sh /start.sh
+
+# Make start.sh executable
 RUN chmod +x /start.sh
 
 # Expose port 8080
 EXPOSE 8080
 
-# Start script
+# Start the container
 CMD ["/start.sh"]
