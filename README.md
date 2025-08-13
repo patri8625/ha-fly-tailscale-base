@@ -9,7 +9,7 @@ The reverse proxy will communicate with the local instance through a [Tailscale]
 
 - Get flyctrl util (linux)
 `curl -L https://fly.io/install.sh | sh`
- 
+
 - Get flyctrl util (windows)
 `iwr https://fly.io/install.ps1 -useb | iex`
 
