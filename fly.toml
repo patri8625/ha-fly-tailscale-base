@@ -10,30 +10,27 @@ processes = []
   dockerfile = "Dockerfile"
 
 [env]
-  TAILSCALE_HOSTNAME = "fly-tailscale-nginx"
-  TAILSCALE_HA_SCHEME = "http"
+  TAILSCALE_AUTHKEY = "tskey-..."
   TAILSCALE_HA_HOST = "100.88.204.56"
-  TAILSCALE_HA_PORT = "8085"
-  TAILSCALE_AUTHKEY = "tskey-auth-k3pRJZjfsd11CNTRL-JBCVybuRLm17hySLfadMm1YuuG1uxKVH"
+  TAILSCALE_HA_PORT = "8123"
+  TAILSCALE_HA_SCHEME = "http"
+  TAILSCALE_HOSTNAME = "fly-tailscale-nginx"
 
 [experimental]
   allowed_public_ports = []
   auto_rollback = true
 
 [[services]]
-  http_checks = []
   internal_port = 8080
-  processes = ["app"]
   protocol = "tcp"
-  script_checks = []
 
   [services.concurrency]
     hard_limit = 25
     soft_limit = 20
     type = "connections"
 
-  [[services.ports]]
-    handlers = ["tls", "http"]
+[[services.ports]]
+    handlers = ["http", "tls"]
     port = 443
 
   [[services.tcp_checks]]
