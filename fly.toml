@@ -1,6 +1,6 @@
 # fly.toml file generated for fly-tailscale-nging-proxy-manager on 2021-10-31T10:59:51+01:00
 
-app = "patricia-ha-proxy"
+app = "ha-fly-tailscale-base"
 
 kill_signal = "SIGINT"
 kill_timeout = 5
