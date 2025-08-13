@@ -12,8 +12,8 @@ processes = []
 [env]
   TAILSCALE_HOSTNAME = "fly-tailscale-nginx"
   TAILSCALE_HA_SCHEME = "http"
-  TAILSCALE_HA_HOST = "100.89.204.56"
-  TAILSCALE_HA_PORT = "8123"
+  TAILSCALE_HA_HOST = "100.88.204.56"
+  TAILSCALE_HA_PORT = "8085"
   TAILSCALE_AUTHKEY = "tskey-auth-k3pRJZjfsd11CNTRL-JBCVybuRLm17hySLfadMm1YuuG1uxKVH"
 
 [experimental]
