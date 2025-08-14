@@ -10,7 +10,7 @@ processes = []
   dockerfile = "Dockerfile"
 
 [env]
-  TAILSCALE_AUTHKEY = "tskey-auth-ktfUW7qZ8w11CNTRL-UrUd9BfgdC1KPs2UhXDaC1vYx6nsDDi8T"
+  TAILSCALE_AUTHKEY = "tskey-auth-ksLm5hEE8321CNTRL-XEPe8o2RjBDigMRb16YnBDxQSgBwr2yv"
   TAILSCALE_HA_HOST = "100.89.204.56"
   TAILSCALE_HA_PORT = "8123"
   TAILSCALE_HA_SCHEME = "http"
